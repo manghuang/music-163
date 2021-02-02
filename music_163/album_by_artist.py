@@ -34,6 +34,7 @@ class Album(object):
 
         albums = body.find_all('a', attrs={'class': 'tit f-thide s-fc0'})  # 获取所有专辑
 
+        print(albums)
         for album in albums:
             albume_id = album['href'].replace('/album?id=', '')
             sql.insert_album(albume_id, artist_id)
@@ -43,6 +44,7 @@ if __name__ == '__main__':
     artists = sql.get_all_artist()
     my_album = Album()
     for i in artists:
+        print(i)
         try:
             my_album.save_albums(i['ARTIST_ID'])
             # print(i)

@@ -1,8 +1,10 @@
 """
 获取所有的歌手信息
 """
-import requests
 from bs4 import BeautifulSoup
+
+
+import requests
 from music_163 import sql
 
 headers = {
@@ -29,8 +31,12 @@ def save_artist(group_id, initial):
     soup = BeautifulSoup(r.content.decode(), 'html.parser')
     body = soup.body
 
+    # print("bofy : %s" % body)
+
     hot_artists = body.find_all('a', attrs={'class': 'msk'})
     artists = body.find_all('a', attrs={'class': 'nm nm-icn f-thide s-fc0'})
+
+    print("hot_artists : %s"  % hot_artists)
 
     for artist in hot_artists:
         artist_id = artist['href'].replace('/artist?id=', '').strip()
@@ -41,6 +47,7 @@ def save_artist(group_id, initial):
             # 打印错误日志
             print(e)
 
+    print("artists : %s"  % artists)
     for artist in artists:
         artist_id = artist['href'].replace('/artist?id=', '').strip()
         artist_name = artist['title'].replace('的音乐', '')
